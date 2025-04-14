@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Passbook - Aisri Indian Bank</title>
+  <style>
+    /* General body styling */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1E1E1E;
+      color: #E0E0E0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Header styling */
+    header {
+      padding: 20px;
+    }
+
+    header img {
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    /* Input box for username */
+    input[type="text"] {
+      padding: 12px;
+      width: 250px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    /* Button styling */
+    button {
+      padding: 12px 25px;
+      background-color: #4CAF50;
+      color: #E0E0E0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45A049;
+    }
+
+    /* PDF iframe container */
+    iframe {
+      width: 90%;
+      height: 600px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+    }
+
+    /* Homepage button */
+    .home-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background-color: #555;
+      color: #E0E0E0;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .home-btn:hover {
+      background-color: #777;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      background-color: #333;
+      padding: 15px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with logo and title -->
+  <header>
+    <img src="https://iili.io/3lqIhbe.png" alt="Aisri Indian Bank Logo" />
+    <h1>Account Passbook Viewer</h1>
+    <p>Enter your username to view your account passbook</p>
+  </header>
+
+  <!-- Main container with input -->
+  <div class="container">
+    <!-- Input field for username -->
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <button onclick="loadPassbook()">View Passbook</button>
+
+    <!-- PDF iframe viewer (initially hidden) -->
+    <div id="pdfContainer" style="display: none;">
+      <iframe id="pdfViewer" allow="fullscreen"></iframe>
+    </div>
+
+    <!-- Back to homepage button -->
+    <a href="index.html" class="home-btn">⬅ Back to Homepage</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Aisri Indian Bank. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mapping of usernames to their Google Drive PDF preview URLs
+    const pdfMap = {
+      // Replace these with your actual Google Drive embed links (preview links)
+      "srichasiva2000": "https://drive.google.com/file/d/1pOSvxYty-y0tamlzajxchOo9HPGm8yio/preview",
+      "sivathanik2010": "https://drive.google.com/file/d/13CgQQP4ppo_xrTmIaKk523wFJEPd7zFE/preview",
+      "admin": "https://drive.google.com/file/d/1qwertyUiopLkjhgFDsaMNbzxc987654/preview"
+      // Add more usernames and links as needed
+    };
+
+    // Function to load the PDF based on the entered username
+    function loadPassbook() {
+      // Get and sanitize the username
+      const username = document.getElementById('usernameInput').value.trim().toLowerCase();
+      const viewer = document.getElementById('pdfViewer');
+
+      // Check if username exists in the map
+      if (!username || !(username in pdfMap)) {
+        alert("Invalid username or passbook not found.");
+        return;
+      }
+
+      // Set the iframe src to the appropriate Google Drive preview URL
+      viewer.src = pdfMap[username];
+
+      // Show the iframe container
+      document.getElementById('pdfContainer').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
